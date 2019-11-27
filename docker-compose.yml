@@ -1,0 +1,35 @@
+version: "2"
+services:
+  flask:
+    image: api-flask2
+    build:
+      context: ./api
+      dockerfile: Dockerfile-flask
+    ports:
+      - "5000:5000"
+    volumes:
+      - .:/code
+    networks:
+      static-network:
+        ipv4_address: 172.20.128.2
+
+  webapp:
+    container_name: webapp2
+    build:
+      context: ./github-users-web
+      dockerfile: Dockerfile
+    ports:
+      - "3005:3005"
+    networks:
+      static-network:
+        ipv4_address: 172.20.129.2
+    depends_on:
+      - flask
+
+networks:
+  static-network:
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16
+          #docker-compose v3+ do not use ip_range
+          ip_range: 172.28.5.0/24
