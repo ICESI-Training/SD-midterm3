@@ -1,4 +1,7 @@
 sudo docker rmi $(sudo docker images -q)
+sudo docker-compose ps  
+sudo docker-compose up
+sudo docker-compose stop
 
 # Examen 2 - Sistemas Distribuidos
 ## Integrantes

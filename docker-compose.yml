@@ -1,10 +1,10 @@
 version: "2"
 services:
   flask:
-    image: api-flask2
+    image: api-flask
     build:
       context: ./api
-      dockerfile: Dockerfile-flask
+      dockerfile: Dockerfile
     ports:
       - "5000:5000"
     volumes:
@@ -14,7 +14,7 @@ services:
         ipv4_address: 172.20.128.2
 
   webapp:
-    container_name: webapp2
+    container_name: webapp
     build:
       context: ./github-users-web
       dockerfile: Dockerfile
@@ -22,7 +22,7 @@ services:
       - "3005:3005"
     networks:
       static-network:
-        ipv4_address: 172.20.129.2
+        ipv4_address: 172.20.128.3
     depends_on:
       - flask
 
