@@ -18,7 +18,6 @@ urlBase = 'https://api.github.com'
 def read():
     return dumps(users.find({},{"_id":0}))
 
-
 def insert(name):
     # User name is empty
     if name.strip() != "":
