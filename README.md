@@ -110,11 +110,51 @@ En este proyecto se encuentran tres servicios diferentes:
 
 ## 3. Documentación de las tareas para desplegar la aplicación.
 
+Lo único que queda faltando para poder ejecutar los contenedores es el Dockerfile correspondiente a cada uno. 
+
+Este es el Dockerfile utilizado para desplegar contenedores de Flask:
+```
+FROM python:3
+
+WORKDIR /code
+COPY . .
+RUN pip install -r requirements.txt
+
+EXPOSE 5000
+CMD python api/app.py
+```
+
+Este es el Dockerfile utilizado para desplegar contenedores de Vue, este archivo es el mismo para los contenedores webapp y health app ya que estos dos son desarollado en vue.
+
+```
+# build environment
+FROM node:12.2.0-alpine as build
+WORKDIR /app
+ENV PATH /app/node_modules/.bin:$PATH
+COPY package.json /app/package.json
+RUN npm install --silent
+RUN npm install @vue/cli@3.7.0 -g
+COPY . /app
+RUN npm run build
+
+# production environment
+FROM nginx:1.16.0-alpine
+COPY --from=build /app/dist /usr/share/nginx/html
+EXPOSE 3005
+CMD ["nginx", "-g", "daemon off;"]
+```
 
 Al ya tener todo el archivo terminado, se procede a ejecutar el siguiente comando para hacer el despliegue:
 ```
   sudo docker-compose up
 ```
+Cuando termine la creación de los contenedores es posible acceder a cada uno de los servicios en las diferentes direcciones, estan son:
+ 
+* ir a la API: http://172.20.128.2:5000/ui/
+* ir a la WebApp: http://172.20.128.3/#/
+* ir a la HealthApp: http://172.20.128.4
+
+
 Si se quiere ver los contenedores activos se puede ejecutar:
 ```
   sudo docker-compose ps 
