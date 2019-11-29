@@ -148,6 +148,11 @@ Al ya tener todo el archivo terminado, se procede a ejecutar el siguiente comand
 ```
   sudo docker-compose up
 ```
+
+El resultado de este comando es el siguiente:
+
+![dockerUp](/images/dockerUp.png)
+
 Cuando termine la creación de los contenedores es posible acceder a cada uno de los servicios en las diferentes direcciones, estan son:
  
 * ir a la API: http://172.20.128.2:5000/ui/
@@ -159,6 +164,10 @@ Si se quiere ver los contenedores activos se puede ejecutar:
 ```
   sudo docker-compose ps 
 ```
+El resultado de este comando es el siguiente:
+
+![dockerPs](/images/dockerPs.png)
+
 Si los contenedores es necesario detenerlos se ejecuta:
 ```
   sudo docker-compose stop
