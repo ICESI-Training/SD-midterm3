@@ -170,5 +170,7 @@ Si se quiere eliminar todas las imágenes se ejecuta:
 
 ## 4. Documente algunos de los problemas encontrados y las acciones efectuadas para su solución.
 
-* Elegir con qué tecnología se iba a realizar el trabajo
-* Encontrar una buena manera de hacer la aplicación de salud, se intentó con prometheus.
+* Una de las mayores dificultades fue elegir con qué tecnología se iba a realizar el trabajo. Se intentó hacer en kubernetes y docker swarm pero se generaron algunos errores, mientras que al intentarlo en docker compose fue mucho más fácil implementar todo.
+* Otra dificultad fue encontrar una buena manera de hacer la aplicación de salud. Como es claro que debían de existir miles de aplicaciones para monitorizar contenedores, se intentó realizar con prometheus y grafana. Al implementar estos contenedores se presentaron algunas dificultades y no me permitió el correcto funcionamiento, por lo tanto procedí a realizar mi propia aplicación realizando una petición con axios a la dirección en la cual se encuentra el servicio.
+
+
