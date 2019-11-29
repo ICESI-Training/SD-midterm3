@@ -85,26 +85,76 @@ Terminado este archivo solo es necesario crear los dockerfiles en cada una de su
 
 En este proyecto se encuentran tres servicios diferentes:
 
-1. La API realizada en flask, al entrar a la carpeta se puede encontrar todo el código necesario para desplegarla. Al ejecutar el siguiente comando desde la raíz del proyecto:
+1. La API realizada en flask, al entrar a la carpeta api se puede encontrar todo el código necesario para desplegarla.
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Es posible ver que se ejecuta la aplicación el local host, y se puede acceder a la siguiente pantalla:
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Al ejecutar la aplicacion se puede ver la siguiente pantalla:
+
+![APIFlask](/images/apiDeploy.png)
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; En esta pantalla se pueden hacer peticiones y la API responderá.
 
-2) La aplicación web implementada en vue, esta aplicación consume la API y permite agregar nuevos usuarios mientras muestra los que ya existen en la base de datos.
+2) La aplicación web implementada en vue, esta aplicación consume la API y permite agregar nuevos usuarios mientras muestra los que ya existen en la base de datos. Se ve de la siguiente manera:
+
+
+![WebApp](/images/webDeploy.png)
+
 
 3) La aplicación que determina si los servicios están arriba o no, en esta aplicación lo que se hace es hacer una petición a la api y a la aplicación web. La respuesta de estas peticiones nos permite saber si los servicios están activos o no. La aplicación se ve de la siguiente manera:
+
+
+![StatusApp](/images/statusDeploy.png)
+
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Como se puede observar, si en status la aplicación dice UP, quiere decir que el servicio está bien, mientras que si dice &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DOWN se interpreta que los servicios no están disponibles.
 
 
 ## 3. Documentación de las tareas para desplegar la aplicación.
 
+Lo único que queda faltando para poder ejecutar los contenedores es el Dockerfile correspondiente a cada uno. 
+
+Este es el Dockerfile utilizado para desplegar contenedores de Flask:
+```
+FROM python:3
+
+WORKDIR /code
+COPY . .
+RUN pip install -r requirements.txt
+
+EXPOSE 5000
+CMD python api/app.py
+```
+
+Este es el Dockerfile utilizado para desplegar contenedores de Vue, este archivo es el mismo para los contenedores webapp y health app ya que estos dos son desarollado en vue.
+
+```
+# build environment
+FROM node:12.2.0-alpine as build
+WORKDIR /app
+ENV PATH /app/node_modules/.bin:$PATH
+COPY package.json /app/package.json
+RUN npm install --silent
+RUN npm install @vue/cli@3.7.0 -g
+COPY . /app
+RUN npm run build
+
+# production environment
+FROM nginx:1.16.0-alpine
+COPY --from=build /app/dist /usr/share/nginx/html
+EXPOSE 3005
+CMD ["nginx", "-g", "daemon off;"]
+```
 
 Al ya tener todo el archivo terminado, se procede a ejecutar el siguiente comando para hacer el despliegue:
 ```
   sudo docker-compose up
 ```
+Cuando termine la creación de los contenedores es posible acceder a cada uno de los servicios en las diferentes direcciones, estan son:
+ 
+* ir a la API: http://172.20.128.2:5000/ui/
+* ir a la WebApp: http://172.20.128.3/#/
+* ir a la HealthApp: http://172.20.128.4
+
+
 Si se quiere ver los contenedores activos se puede ejecutar:
 ```
   sudo docker-compose ps 
@@ -120,5 +170,7 @@ Si se quiere eliminar todas las imágenes se ejecuta:
 
 ## 4. Documente algunos de los problemas encontrados y las acciones efectuadas para su solución.
 
-* Elegir con qué tecnología se iba a realizar el trabajo
-* Encontrar una buena manera de hacer la aplicación de salud, se intentó con prometheus.
+* Una de las mayores dificultades fue elegir con qué tecnología se iba a realizar el trabajo. Se intentó hacer en kubernetes y docker swarm pero se generaron algunos errores, mientras que al intentarlo en docker compose fue mucho más fácil implementar todo.
+* Otra dificultad fue encontrar una buena manera de hacer la aplicación de salud. Como es claro que debían de existir miles de aplicaciones para monitorizar contenedores, se intentó realizar con prometheus y grafana. Al implementar estos contenedores se presentaron algunas dificultades y no me permitió el correcto funcionamiento, por lo tanto procedí a realizar mi propia aplicación realizando una petición con axios a la dirección en la cual se encuentra el servicio.
+
+
