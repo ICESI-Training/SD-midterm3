@@ -85,15 +85,25 @@ Terminado este archivo solo es necesario crear los dockerfiles en cada una de su
 
 En este proyecto se encuentran tres servicios diferentes:
 
-1. La API realizada en flask, al entrar a la carpeta se puede encontrar todo el código necesario para desplegarla. Al ejecutar el siguiente comando desde la raíz del proyecto:
+1. La API realizada en flask, al entrar a la carpeta api se puede encontrar todo el código necesario para desplegarla.
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Es posible ver que se ejecuta la aplicación el local host, y se puede acceder a la siguiente pantalla:
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Al ejecutar la aplicacion se puede ver la siguiente pantalla:
+
+![APIFlask](/images/apiDeploy.png)
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; En esta pantalla se pueden hacer peticiones y la API responderá.
 
-2) La aplicación web implementada en vue, esta aplicación consume la API y permite agregar nuevos usuarios mientras muestra los que ya existen en la base de datos.
+2) La aplicación web implementada en vue, esta aplicación consume la API y permite agregar nuevos usuarios mientras muestra los que ya existen en la base de datos. Se ve de la siguiente manera:
+
+
+![WebApp](/images/webDeploy.png)
+
 
 3) La aplicación que determina si los servicios están arriba o no, en esta aplicación lo que se hace es hacer una petición a la api y a la aplicación web. La respuesta de estas peticiones nos permite saber si los servicios están activos o no. La aplicación se ve de la siguiente manera:
+
+
+![StatusApp](/images/statusDeploy.png)
+
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Como se puede observar, si en status la aplicación dice UP, quiere decir que el servicio está bien, mientras que si dice &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DOWN se interpreta que los servicios no están disponibles.
 
