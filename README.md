@@ -5,24 +5,82 @@
 
 ## 1. Documentación del procedimiento para el despliegue de los contenedores.
 
-Este proyecto está desarrollado en docker compose, por lo tanto el archivo en el cual se define cual va a ser la estructura de los contenedores se llama docker-compose.yml, aqui de definen cada uno de los tres contenedores que se van a utilizar y una network para que los contenedores cuenten con un ip estatica y poder acceder fácilmente a ellos.
+Este proyecto está desarrollado en docker compose, por lo tanto el archivo en el cual se define cual va a ser la estructura de los contenedores se llama docker-compose.yml, aqui se definen cada uno de los tres contenedores que se van a utilizar y una network para que los contenedores cuenten con un ip estatica y poder acceder fácilmente a ellos.
 
-Al ya tener todo el archivo terminado, se procede a ejecutar el siguiente comando para hacer el despliegue:
+El código es el siguiente:
+
+Aquí se puede ver como se define un contenedor de nombre flask, donde se ubica su dockerfile, que puertos habilita para recibir peticiones y su dirección ip estática. Este contenedor es el encargado de ejecutar la API en flask.
+
 ```
-  sudo docker-compose up
+version: "2"
+services:
+  flask:
+    image: flask
+    container_name: flask
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+    volumes:
+      - .:/code
+    networks:
+      static-network:
+        ipv4_address: 172.20.128.2
 ```
-Si se quiere ver los contenedores activos se puede ejecutar:
+
+Aquí se puede ver como se define un contenedor de nombre webapp, donde se ubica su dockerfile, que puertos habilita para recibir peticiones, su dirección ip estática y que depende del contenedor de nombre flask. Este contenedor es el encargado de ejecutar la aplicación web.
+
+
 ```
-  sudo docker-compose ps 
+  webapp:
+    image: webapp
+    container_name: webapp
+    build:
+      context: ./github-users-web
+      dockerfile: Dockerfile
+    ports:
+      - "3005:3005"
+    networks:
+      static-network:
+        ipv4_address: 172.20.128.3
+    depends_on:
+      - flask
 ```
-Si los contenedores es necesario detenerlos se ejecuta:
+
+Aquí se puede ver como se define un contenedor de nombre health app, donde se ubica su dockerfile, que puertos habilita para recibir peticiones, su dirección ip estática y que depende de los contenedores de nombre flask y webapp. Este contenedor es el encargado de ejecutar la aplicación que verifica que los servicios estén funcionando.
+
 ```
-  sudo docker-compose stop
+    
+  healthapp:
+    image: healthapp
+    container_name: healthapp
+    build:
+      context: ./health-app
+      dockerfile: Dockerfile
+    ports:
+      - "3006:3006"
+    networks:
+      static-network:
+        ipv4_address: 172.20.128.4
+    depends_on:
+      - flask
+      - webapp
 ```
-Si se quiere eliminar todas las imágenes se ejecuta:
+En esta parte del código se define la subnet a la cual van a pertenecer los contenedores, todo esto para tener una ip estática en cada uno de estos.
+
 ```
-  sudo docker rmi $(sudo docker images -q)
+networks:
+  static-network:
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16
+          #docker-compose v3+ do not use ip_range
+          ip_range: 172.28.5.0/24
+
 ```
+Terminado este archivo solo es necesario crear los dockerfiles en cada una de sus ubicaciones ya establecidas.
+
 ## 2. Archivos fuentes en el repositorio de la aplicación implementada.
 
 En este proyecto se encuentran tres servicios diferentes:
@@ -41,6 +99,24 @@ En este proyecto se encuentran tres servicios diferentes:
 
 
 ## 3. Documentación de las tareas para desplegar la aplicación.
+
+
+Al ya tener todo el archivo terminado, se procede a ejecutar el siguiente comando para hacer el despliegue:
+```
+  sudo docker-compose up
+```
+Si se quiere ver los contenedores activos se puede ejecutar:
+```
+  sudo docker-compose ps 
+```
+Si los contenedores es necesario detenerlos se ejecuta:
+```
+  sudo docker-compose stop
+```
+Si se quiere eliminar todas las imágenes se ejecuta:
+```
+  sudo docker rmi $(sudo docker images -q)
+```
 
 ## 4. Documente algunos de los problemas encontrados y las acciones efectuadas para su solución.
 
