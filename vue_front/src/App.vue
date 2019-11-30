@@ -2,40 +2,67 @@
   <div id="app">
     <form @submit.prevent="submitForm">
       <div>
-        <label for="cc">CC or id:</label>
+        <label for="cc">CC or Id:</label>
         <br />
-        <input id="cc" type="tel" v-model="name" />
+        <input id="cc" type="message" v-model="cc" @keypress="isNumber($event)" />
       </div>
       <div>
         <label for="username">Username:</label>
         <br />
-        <input id="username" type="text" v-model="email" />
+        <input id="username" type="text" v-model="username" />
       </div>
+      <button v-on:click="buttonPost" type="submit">Insert</button>
+      <div></div>
       <div>
-        <label for="userlist">Who was the first son on mahtmagandi:</label>
+        <label for="userlist">In the following box you can view the result of a general GET request</label>
         <br />
-        <textarea id="userlist " v-model="firstSon"></textarea>
+        <textarea id="userlist " v-model="generalGet" disabled></textarea>
       </div>
-      <button :class="[name ? activeClass : '']" type="submit">Submit</button>
-      <div>
-        <h3>Data retrieved from server:</h3>
-        <p v-if="success">{{ success }}</p>
-        <pre>{{ response }}</pre>
-      </div>
+      <!--  este esta duplicado, cambiar -->
+      <button v-on:click="buttonGeneralGet" type="submit">General Get</button>
+      <div></div>
     </form>
   </div>
 </template>
 
 <script>
-// import HelloWorld from './components/HelloWorld.vue'
 import axios from "axios";
+
+axios.defaults.headers.post['Content-Type'] ='application/x-www-form-urlencoded';
+// axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
+// axios.defaults.withCredentials = true;
 export default {
   name: "app",
-  components: {
-    // HelloWorld
-  },
-
+  components: {},
+  data:function() {
+return {
+      cc: '',
+      username: ''
+  };
+},
   methods: {
+    buttonPost(){
+      axios
+        .post("http://0.0.0.0:5000/users/insert", {
+          cc: this.cc,
+          username: this.username,
+         
+   headers: {
+          // Access-Control-Allow-Origin: *;
+        }
+        })
+        .then(response => {
+          console.log(response);
+          this.response = response.data
+          this.success = "Data saved successfully";
+          this.response = JSON.stringify(response, null, 2);
+        })
+        .catch(error => {
+          this.response = "Error: " + error.response.status;
+        });
+      this.cc = "";
+      this.username = "";
+    },
     submitForm() {
       axios
         .post("//jsonplaceholder.typicode.com/posts", {
@@ -56,14 +83,28 @@ export default {
       this.name = "";
       this.email = "";
       this.firstSon = "";
+    },
+    isNumber: function(evt) {
+      evt = evt ? evt : window.event;
+      var charCode = evt.which ? evt.which : evt.keyCode;
+      if (
+        charCode > 31 &&
+        (charCode < 48 || charCode > 57) &&
+        charCode !== 46
+      ) {
+        evt.preventDefault();
+      } else {
+        return true;
+      }
+    },
+    buttonGeneralGet() {
+      // something
     }
   }
 };
 </script>
 
 <style>
-$primary: #5968d7;
-
 #app {
   display: flex;
   justify-content: center;
@@ -73,29 +114,24 @@ $primary: #5968d7;
 form {
   width: 500px;
   padding: 10px 40px;
-  label {
-    text-transform: uppercase;
-    font-size: 13px;
-    letter-spacing: 0.03em;
-    font-weight: bold;
-  }
-  input,
-  textarea {
-    border: 1px solid #ccc;
-    color: #333;
-    width: calc(100% - 30px);
-  }
-  input,
-  textarea,
-  button {
-    border-radius: 4px;
-    padding: 8px 15px;
-    font-family: "Work Sans", sans-serif;
-    font-weight: 300;
-  }
-  div {
-    margin: 20px 0;
-  }
+}
+
+input,
+textarea {
+  border: 1px solid #ccc;
+  color: #333;
+  width: calc(100% - 30px);
+}
+input,
+textarea,
+button {
+  border-radius: 4px;
+  padding: 8px 15px;
+  font-family: "Work Sans", sans-serif;
+  font-weight: 300;
+}
+div {
+  margin: 20px 0;
 }
 
 button {
@@ -109,13 +145,6 @@ button {
   cursor: pointer;
   box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.3);
   transition: 0.25s all ease;
-  &:hover {
-    transform: translateY(2px);
-  }
-}
-
-.active {
-  background: $primary;
 }
 
 pre-content {
