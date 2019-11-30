@@ -6,3 +6,5 @@ sudo docker ps -a
 sudo docker kill flask_app
 sudo docker rm flask_app
 sudo docker rmi flask_img
+
+https://mherman.org/blog/dockerizing-a-vue-app/

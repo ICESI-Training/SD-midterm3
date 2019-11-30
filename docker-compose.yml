@@ -1,10 +1,18 @@
 version: "3"
 services:
-  flask:
-    container_name: flask_app
-    build: ./flask_server
+  # flask:
+  #   image: flask_img
+  #   container_name: flask_app
+  #   build: ./flask_server
+  #   ports:
+  #     - "5050:5050"
+  #   volumes:
+  #     - .:/app
+  vue:
+    image: vue_img
+    container_name: vue_app
+    build: ./vue_front
     ports:
-      - "5050:5050"
-    volumes:
-      - .:/code
-    
+      - "8080:8080"
+    # depends_on:
+    #   - flask
