@@ -58,6 +58,8 @@ export default {
     },
     methods:{
         createUser(){
+            this.success=""
+            this.submitStatus=""
             let data={
                 idnumber: this.id,
                 name: this.name,
@@ -74,7 +76,10 @@ export default {
                 console.log(err)
                 this.submitStatus = "Error. Try again!"
             })
-            
+
+            this.id=0
+            this.name ="",
+            this.lastname = ""
         }
     }
 };
