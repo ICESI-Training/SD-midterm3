@@ -1,8 +1,8 @@
-import HelloWorld from '@/components/HelloWorld'
+import HealthCheck from '@/components/HealthCheck'
 
 const routes = [
 
-  {path: '/home', component: HelloWorld},
+  {path: '/home', component: HealthCheck},
 
   { path: '/', redirect: '/home' },
   { path: '*', redirect: '/' }   
