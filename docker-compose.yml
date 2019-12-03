@@ -6,11 +6,9 @@ services:
     build:
       context: ./api
       dockerfile: Dockerfile
-    volumes:
-    - .:/code
     ports:
       - "3000:3000"
-      
+
   frontend:
     build:
       context: ./frontend
@@ -18,5 +16,4 @@ services:
     volumes:
     - .:/app
     ports:
-      - "5010:8080"
-
+      - "4000:80"

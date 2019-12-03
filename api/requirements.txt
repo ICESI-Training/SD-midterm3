@@ -1,0 +1,9 @@
+connexion[swagger-ui]
+bson
+flask_pymongo
+dnspython
+flask
+connexion
+pytest
+flask_cors
+swagger-ui-py
