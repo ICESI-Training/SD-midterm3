@@ -7,7 +7,7 @@ stages:
 
     # Define the request to be made...
     request:
-      url: http://0.0.0.0:5000/users/9999
+      url: http://0.0.0.0:5050/users/9999
       method: GET
 
     # ...and the expected response code and body
@@ -18,7 +18,7 @@ stages:
 
     # Define the request to be made...
     request:
-      url: http://0.0.0.0:5000/users/delete/999999
+      url: http://0.0.0.0:5050/users/delete/999999
       method: DELETE
 
     # ...and the expected response code and body
