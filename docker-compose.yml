@@ -17,3 +17,12 @@ services:
     - .:/app
     ports:
       - "4000:80"
+
+  healthweb:
+    build:
+      context: ./healthweb
+      dockerfile: Dockerfile
+    volumes:
+    - .:/app
+    ports:
+      - "5000:80"
