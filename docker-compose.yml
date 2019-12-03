@@ -14,9 +14,10 @@ services:
       context: ./frontend
       dockerfile: Dockerfile
     volumes:
-    - .:/app
+    - ./frontend/:/app
+    - /app/node_modules
     ports:
-      - "4000:80"
+      - "4000:8080"
 
   healthweb:
     build:
