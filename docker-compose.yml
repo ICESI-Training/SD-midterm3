@@ -1,0 +1,28 @@
+version: "3"
+services:
+  flask:
+    image: flask_img
+    container_name: flask_app
+    build: ./flask_server
+    ports:
+      - "5050:5050"
+    volumes:
+      - .:/app
+  vue:
+    image: vue_img
+    container_name: vue_app
+    build: ./vue_front
+    ports:
+      - "6060:6060"
+    depends_on:
+      - flask
+  health:
+    image: health_img
+    container_name: health_app
+    build: ./vue_health
+    ports:
+      - "7070:7070"
+    depends_on: 
+      - flask
+      - vue
+  
