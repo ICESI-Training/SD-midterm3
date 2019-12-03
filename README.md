@@ -140,19 +140,16 @@ A continuación, se mostrará el backend y frontend funcionando con alguna petic
 --------------------------------------------------------------------------------------------------------------------------------------
 ## 4. Documente algunos de los problemas encontrados y las acciones efectuadas para su solución.
 
-Uno de los problemas recurrentes fue el de tratar de hacer el despliegue de la app en computadores distintos, siempre aparecía un error de https y el mismo error de la vez pasada con el connexion, se soluciona haciendo la instalación de manera correcta de los paquetes.
+- Uno de los problemas recurrentes fue el de tratar de hacer el despliegue de la app en computadores distintos, siempre aparecía un error de https y el mismo error de la vez pasada con el connexion, se soluciona haciendo la instalación de manera correcta de los paquetes.
 
-Otro de los errores clásicos que sucedieron fue el de la sintaxis al momento de hacer el archivo de configuración del .yml.
+- Otro de los errores clásicos que sucedieron fue el de la sintaxis al momento de hacer el archivo de configuración del .yml.
 
-Otro error fue con docker compose, era este **ERROR: Version in "./docker-compose.yml" is unsupported. You might be seeing this error because you're using the wrong Compose file version. Either specify a supported version (e.g "2.2" or "3.3") and place your service definitions under the `services` key, or omit the `version` key and place your service definitions at the root of the file to use version 1.
+- Otro error fue con docker compose, era este **ERROR: Version in "./docker-compose.yml" is unsupported. You might be seeing this error because you're using the wrong Compose file version. Either specify a supported version (e.g "2.2" or "3.3") and place your service definitions under the `services` key, or omit the `version` key and place your service definitions at the root of the file to use version 1.
 For more on the Compose file format versions, see https://docs.docker.com/compose/compose-file/**, y la solución tenía que ver con la versión, se arreglo utilizando el siguiente comando **sudo curl -L "https://github.com/docker/compose/releases/download/1.24.1/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose**
 
- 
+- Otro de los errores que también aparecía con docker Compose era **ERROR: Couldn't connect to Docker daemon at http+docker://localhost is it running?** , sinceramente el error nos tomó mucho tiempo y había que utilizar el comando con sudo.
 
-Otro de los errores que también aparecía con docker Compose era **ERROR: Couldn't connect to Docker daemon at http+docker://localhost - is it running?** , sinceramente el error nos tomó mucho tiempo y había que utilizar el comando con sudo.
-
-
-
+- Por ultimo encontramos un error al comunicar el front-end con el back-end. El error encontrado se refiere a los permisos para consultar la api del back, partiendo desde el front. Este error no fue posible solucionarlo por lo que se establece como mejorar en un futuro.
 
 
 
