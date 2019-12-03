@@ -43,24 +43,23 @@ return {
 },
   methods: {
         buttonGeneralGet() {
-      axios.get(`http://0.0.0.0:5000/users/`)
+      axios.get(`http://0.0.0.0:5050/users/`)
     .then(response => {
       // JSON responses are automatically parsed.
       // this.posts = response.data,
       this.generalGet = response.data
     })
     .catch(e => {
-      this.errors.push(e)
+      console.log(e.response)
+      // console.log(response)
     })
     },
     buttonPost(){
+
       axios
-        .post("http://0.0.0.0:5000/users/insert", {
-          cc: this.cc,
-          username: this.username,
-        })
+        .post(`http://0.0.0.0:5050/users/insert/${this.cc}/${this.username}`, {headers:{"Content-Type":"application/json"}})
         .catch(error => {
-          this.response = "Error: " + error.response.status;
+          console.log(error.response);
         });
       this.cc = "";
       this.username = "";
