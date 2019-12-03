@@ -37,25 +37,27 @@ export default {
   data:function() {
 return {
       cc: '',
-      username: ''
+      username: '',
+      generalGet:''
   };
 },
   methods: {
+        buttonGeneralGet() {
+      axios.get(`http://0.0.0.0:5000/users/`)
+    .then(response => {
+      // JSON responses are automatically parsed.
+      // this.posts = response.data,
+      this.generalGet = response.data
+    })
+    .catch(e => {
+      this.errors.push(e)
+    })
+    },
     buttonPost(){
       axios
         .post("http://0.0.0.0:5000/users/insert", {
           cc: this.cc,
           username: this.username,
-         
-   headers: {
-          // Access-Control-Allow-Origin: *;
-        }
-        })
-        .then(response => {
-          console.log(response);
-          this.response = response.data
-          this.success = "Data saved successfully";
-          this.response = JSON.stringify(response, null, 2);
         })
         .catch(error => {
           this.response = "Error: " + error.response.status;
@@ -96,9 +98,6 @@ return {
       } else {
         return true;
       }
-    },
-    buttonGeneralGet() {
-      // something
     }
   }
 };
