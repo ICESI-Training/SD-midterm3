@@ -64,27 +64,6 @@ return {
       this.cc = "";
       this.username = "";
     },
-    submitForm() {
-      axios
-        .post("//jsonplaceholder.typicode.com/posts", {
-          userID: this.userID,
-          name: this.name,
-          email: this.email,
-          firstSon: this.firstSon
-        })
-        .then(response => {
-          // console.log(response);
-          // this.response = response.data
-          this.success = "Data saved successfully";
-          this.response = JSON.stringify(response, null, 2);
-        })
-        .catch(error => {
-          this.response = "Error: " + error.response.status;
-        });
-      this.name = "";
-      this.email = "";
-      this.firstSon = "";
-    },
     isNumber: function(evt) {
       evt = evt ? evt : window.event;
       var charCode = evt.which ? evt.which : evt.keyCode;
