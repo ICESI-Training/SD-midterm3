@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <form @submit.prevent="submitForm">
+    <form>
       <div>
         <label for="cc">CC or Id:</label>
         <br />
