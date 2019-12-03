@@ -1,0 +1,34 @@
+version: '3.7'
+
+services:
+
+  backend:
+    container_name: backend
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    volumes:
+      - './backend/:/app'
+      - '/app/node_modules'
+    ports:
+      - '4000:4000' 
+  frontend:
+    container_name: frontend
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    volumes:
+      - './frontend/:/app'
+      - '/app/node_modules'
+    ports:
+      - '8080:8080'
+  healthcheck:
+    container_name: healthcheck
+    build:
+      context: ./healthcheck
+      dockerfile: Dockerfile
+    volumes:
+      - './healthcheck/:/app'
+      - '/app/node_modules'
+    ports:
+      - '8090:8090'    
