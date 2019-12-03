@@ -1,0 +1,29 @@
+version: "3"
+services:
+  api:
+    environment:
+      - MONGO_FLASK=d_user:distribuidos20192
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    volumes:
+    - ./frontend/:/app
+    - /app/node_modules
+    ports:
+      - "4000:8080"
+
+  healthweb:
+    build:
+      context: ./healthweb
+      dockerfile: Dockerfile
+    volumes:
+    - .:/app
+    ports:
+      - "5000:80"
