@@ -87,6 +87,10 @@ Travis instala las dependencias necesarias y ejecuta los test con normalidad, ad
 
 Se realizaron 3 archivos para las pruebas (de tipo .tavern.yaml). En cada uno de ellos se evaluaban escenarios de prueba para diferentes tipos de respuestas HTTP Request (Como se consideraron las respuestas 200 (sucess), 201, 400(bad input) y 404(not found)); el objetivo de esto era poder ver un correcto comportamiento en condiciones ideales, otro comportamiento en condiciones de inputs inválidos y en momentos donde la base de datos no posee información sobre lo que se consulta. Tambien las operaciones del CRUD tomaban un papel importante en cuanto a las validaciones, con el objetivo de cuidar la integridad en la estructura de los datos.
 
+![Alt text](images/travis1.png?raw=true "Tavern syntax")
+
+![Alt text](images/travis2.png?raw=true "Tavern syntax")
+
 
 ## 5. Dificultades encontradas en el proceso
 
