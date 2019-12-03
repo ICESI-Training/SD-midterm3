@@ -39,33 +39,17 @@ export default {
                 }),
     
     axios
-      .get('/')
+      .get('/#/home')
       .then((response) => {
                     this.estadoFrontend= 'UP';
                 })
       .catch((err) => {
-                    this.estadoFrontend = 'DOWN';
+                    if ("Network Error" == err.message) {
+                        this.estadoFrontend = "UP";
+                      } else {
+                        this.estadoFrontend = "DOWN";
+                      }
                 })
-  },
-methods: {
-   async  submitform(){
-         
-         let data={
-             id: this.formdata.id,
-             name: this.formdata.name
-         }
-         let answ=`id=${data.id}&name=${data.name}`
-         console.log(data.id)
-         console.log(data.name)
-     await    api.saveUser(answ).then(response => {
-        
-        console.log(response);
-       
-      })
-      .catch(err => console.log(err));
-  },
-     
-}
-        };
+  }};
    
 </script>
