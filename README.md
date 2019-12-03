@@ -9,6 +9,6 @@ sudo docker rmi flask_img
 
 sudo docker compose-up -d
 sudo docker exec -ti vue_app hostname -i
-
+sudo docker exec -ti health_app hostname -i
 
 https://mherman.org/blog/dockerizing-a-vue-app/
