@@ -90,15 +90,17 @@ Se realizaron 3 archivos para las pruebas (de tipo .tavern.yaml). En cada uno de
 
 ## 5. Dificultades encontradas en el proceso
 
-- Recordar algunos detalles acerca del ciclo de vida de Vue, como los llamados a los métodos, las condiciones de renderizado, las propiedades de los elementos visuales, el submit de los formularios, entre otros.
+* Recordar algunos detalles acerca del ciclo de vida de Vue, como los llamados a los métodos, las condiciones de renderizado, las propiedades de los elementos visuales, el submit de los formularios, entre otros.
 
-- Al no haberse usado axios antes, fue necesario aprender a realizar peticiones HTTP a través de este, al mismo tiempo que entender todo el manejo de respuestas de los servidores.
+* Al no haberse usado axios antes, fue necesario aprender a realizar peticiones HTTP a través de este, al mismo tiempo que entender todo el manejo de respuestas de los servidores.
 
-- Al montar los servicios front hubo dificultades, ya que se intentaba acceder a los contenedores mediante una URL localhost. Luego se cayó en cuenta que a cada contenedor se le asigna una IP y por medio de esta después se accedió a los módulos requeridos.
+* Al montar los servicios front hubo dificultades, ya que se intentaba acceder a los contenedores mediante una URL localhost. Luego se cayó en cuenta que a cada contenedor se le asigna una IP y por medio de esta después se accedió a los módulos requeridos.
 
-- Problemas de permisos en las computadoras públicas del laboratorio
+* Problemas de permisos en las computadoras públicas del laboratorio
 
-- Limitaciones de espacio-tiempo
+* Limitaciones de espacio-tiempo
+
+* El acondicionamiento de las respuestas de Cross Origin Resource Sharing (CORS), debido a que si no se definía el comportamiento que adoptaría CORS ante las peticiones HTTP las rechazaría de la parte del servidor, esto implicó mucho tiempo de trabajo invertido.
 
 ## 6. Referencias
 
