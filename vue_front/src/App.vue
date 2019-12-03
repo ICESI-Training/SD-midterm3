@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <form>
+    <form @submit.prevent="submitForm">
       <div>
         <label for="cc">CC or Id:</label>
         <br />
@@ -24,10 +24,8 @@
     </form>
   </div>
 </template>
-
 <script>
 import axios from "axios";
-
 axios.defaults.headers.post['Content-Type'] ='application/x-www-form-urlencoded';
 // axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
 // axios.defaults.withCredentials = true;
@@ -43,7 +41,7 @@ return {
 },
   methods: {
         buttonGeneralGet() {
-      axios.get(`http://0.0.0.0:5050/users/`)
+       axios.get(`http://0.0.0.0:5050/users/`)
     .then(response => {
       // JSON responses are automatically parsed.
       // this.posts = response.data,
@@ -55,7 +53,6 @@ return {
     })
     },
     buttonPost(){
-
       axios
         .post(`http://0.0.0.0:5050/users/insert/${this.cc}/${this.username}`, {headers:{"Content-Type":"application/json"}})
         .catch(error => {
@@ -63,6 +60,27 @@ return {
         });
       this.cc = "";
       this.username = "";
+    },
+    submitForm() {
+      axios
+        .post("//jsonplaceholder.typicode.com/posts", {
+          userID: this.userID,
+          name: this.name,
+          email: this.email,
+          firstSon: this.firstSon
+        })
+        .then(response => {
+          // console.log(response);
+          // this.response = response.data
+          this.success = "Data saved successfully";
+          this.response = JSON.stringify(response, null, 2);
+        })
+        .catch(error => {
+          this.response = "Error: " + error.response.status;
+        });
+      this.name = "";
+      this.email = "";
+      this.firstSon = "";
     },
     isNumber: function(evt) {
       evt = evt ? evt : window.event;
@@ -80,19 +98,16 @@ return {
   }
 };
 </script>
-
 <style>
 #app {
   display: flex;
   justify-content: center;
   font-family: "Work Sans", sans-serif;
 }
-
 form {
   width: 500px;
   padding: 10px 40px;
 }
-
 input,
 textarea {
   border: 1px solid #ccc;
@@ -110,7 +125,6 @@ button {
 div {
   margin: 20px 0;
 }
-
 button {
   color: white;
   border: none;
@@ -123,9 +137,7 @@ button {
   box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.3);
   transition: 0.25s all ease;
 }
-
 pre-content {
   width: 500px;
 }
 </style>
-

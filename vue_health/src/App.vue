@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <form>
+    <form @submit.prevent="submitForm">
       <div>
         <h2>_JuanBol & AndresZ API Health Checks_</h2> 
         <br />
@@ -16,8 +16,8 @@
         <br />
         <br />
       </div>
-      <button v-on:click="buttonCheckFront" type="submit">Execute FrontEnd Check</button>
-      <button v-on:click="buttonCheckBack" type="submit">Execute Backend Check</button>
+      <!-- <button v-on:click="buttonCheckFront" type="submit">Execute FrontEnd Check</button> -->
+      <button v-on:click="buttonCheckBack" type="submit">Execute Check</button>
     </form>
   </div>
 </template>
@@ -40,31 +40,57 @@ return {
 },
   methods: {
       buttonCheckFront(){
-      axios.get(`http://0.0.0.0:8081/?`)
+      axios.get(`http://172.18.0.3/`)
     .then(response => {
       //  this.generalGet = response.data
             console.log(response.data);
-
+console.log("RESPONSE")
         if (response.status == 200) {
+          console.log("entro")
             this.frontOk = true }
         })
     .catch(e => {
       this.frontOk= false;
+      
       console.log(e.response)
     })
     },
       buttonCheckBack(){
       axios.get(`http://0.0.0.0:5050/users/`)
     .then(response => {
+      console.log("response")
         console.log(response.data);
 
         if (response.status == 200) {
-            this.backOk = true }
+            this.backOk = true,
+            this.frontOk = true }
       })
     .catch(e => {
       this.backOk= false;
-      console.log(e.response)
+      console.log("catch")
+      console.log(e.toString())
     })
+    },
+    submitForm() {
+      axios
+        .post("//jsonplaceholder.typicode.com/posts", {
+          userID: this.userID,
+          name: this.name,
+          email: this.email,
+          firstSon: this.firstSon
+        })
+        .then(response => {
+          // console.log(response);
+          // this.response = response.data
+          this.success = "Data saved successfully";
+          this.response = JSON.stringify(response, null, 2);
+        })
+        .catch(error => {
+          this.response = "Error: " + error.response.status;
+        });
+      this.name = "";
+      this.email = "";
+      this.firstSon = "";
     }
   }
 };
