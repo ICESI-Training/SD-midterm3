@@ -6,7 +6,37 @@
 
 ## 0. Sobre el proyecto
 
-Este proyecto consta de un aplicativo Python que levanta un API Rest (que usa el estándar OpenAPI) con servicios que permiten responder a peticiones HTTP GET, POST, y DELETE y también de FrontEnds (Para enviar peticiones y testear la salud de los componentes) manufacturados en el Framework de Javascript Vue. Todo lo anterior separado y distribuido dentro de contenedores de Docker mediante Docker Compose. 
+Este proyecto consta de un aplicativo Python que levanta un API Rest (que usa el estándar OpenAPI) con servicios que permiten responder a peticiones HTTP GET, POST, y DELETE y también de FrontEnds (Para enviar peticiones y testear la salud de los componentes) manufacturados en el Framework de Javascript Vue. Todo lo anterior separado y distribuido dentro de contenedores de Docker mediante Docker Compose.
+
+La siguiente tabla muestra cada servicio en su respectivo contenedor, junto a la dirección y puerto, para este proyecto los puertos fueron especificados al momento del desliegue, mientras que las direcciones IP fueron brindadas automáticamente por Docker Compose.
+
+Servidor | Descripción | Dirección IP | Puerto mapeado
+-------- | ----------- | ------------ | --------------
+Flask App  | Back end (API) | 172.18.0.2 | 5050
+Vue App | Front end | 172.18.0.3 | 6060 | 
+Health App | Monitor | 172.18.0.4  | 7070 |
+
+Para poder desplegar los micro servicios es necesario ejecutar el siguiente comando:
+
+~~~
+    sudo docker compose-up -d
+    sudo docker compose-up ps
+~~~
+
+Los anteriores comandos son los encargados de realizar el aprovisionamiento de los servicios y su respectivo despliegue. Al ejecutarlos debe aparecer lo siguiente para garantizar que la aplicación se ejecutó con éxito.
+
+[Alt text](images/compose_ps.png?raw=true "Docker Compose PS")
+
+Para acceder a los servicios se debe ingresar a las siguiente rutas:
+
+* BACK END: http://172.18.0.2:5050/ui/
+* FRONT END: http://172.18.0.3/
+* MONITOR: http://172.18.0.4/
+
+La siguiente captura muestra el back end en ejecución mediante una interaz provista por swagger, desde aquí se pueden realizar peticiones HTTP al API.
+
+[Alt text](images/flask_app.png?raw=true "Docker Compose PS")
+
 
 ## 1. Despliegue mediante Docker Compose
 
@@ -17,9 +47,7 @@ En este archivo se definen los tres servicios que conforman la aplicación, esto
 [Alt text](images/compose.png?raw=true "Docker Compose")
 
 
-
-
-
+## 2. Aprovisionamiento mediante Docker
 
 
 
