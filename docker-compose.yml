@@ -22,3 +22,13 @@ services:
       - '/app/node_modules'
     ports:
       - '8080:8080'
+  healthcheck:
+    container_name: healthcheck
+    build:
+      context: ./healthcheck
+      dockerfile: Dockerfile
+    volumes:
+      - './healthcheck/:/app'
+      - '/app/node_modules'
+    ports:
+      - '8081:8081'    
