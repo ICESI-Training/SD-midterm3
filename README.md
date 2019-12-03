@@ -21,8 +21,8 @@ Health App | Monitor | 172.18.0.4  | 7070 |
 Para poder desplegar los micro servicios es necesario ejecutar el siguiente comando:
 
 ~~~
-    sudo docker compose-up -d
-    sudo docker compose-up ps
+    sudo docker-compose up -d
+    sudo docker-compose ps
 ~~~
 
 Los anteriores comandos son los encargados de realizar el aprovisionamiento de los servicios y su respectivo despliegue. Al ejecutarlos debe aparecer lo siguiente para garantizar que la aplicación se ejecutó con éxito.
@@ -60,10 +60,12 @@ En este archivo se definen los tres servicios que conforman la aplicación, esto
 
 ![Alt text](images/compose.png?raw=true "Docker Compose")
 
+Como puede verse en la captura anterior, la etiqueta build contiene la ruta en donde se encuentra el respectivo archivo *Dockerfile* 
+
 
 ## 3. Aprovisionamiento mediante Docker
 
-
+La estructura del proyecto consta de 3 carpetas, donde cada carpeta tiene los archivos necesarios para su funcionamiento 
 
 
 sudo docker build -t flask_img .
