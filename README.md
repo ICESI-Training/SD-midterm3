@@ -192,7 +192,7 @@ Ahora procederemos a bajar el otro contenedor
 ## 4. Problemas encontrados y acciones efectuadas
 Los problemas encontrados y las acciones efectuadas fueron las siguientes:
 
-1. Al realizar los primeros Dockerfile para el backend y frontend,la primera vez que se intentó hacer build de la imagen de frontend, no lograba encontrar algunos archivos de configuración, y era porque no se había considerado la línea  **COPY . .*
+1. Al realizar los primeros Dockerfile para el backend y frontend,la primera vez que se intentó hacer build de la imagen de frontend, no lograba encontrar algunos archivos de configuración, y era porque no se había considerado la línea  *COPY . .*
 
 2. Al realizar la orquestación con el docker compose, salía un error de que no encontraba ciertos archivos, en la línea de código de los volumes de cada contenedor. 
 Por ejemplo, en la del backend, se tenía la línea de código de la siguiente manera:
