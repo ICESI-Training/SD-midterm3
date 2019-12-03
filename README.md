@@ -113,7 +113,7 @@ COPY . /usr/local/apache2/htdocs/
 A continuación, se mostrará el backend y frontend funcionando con alguna petición ya sea crear usuario o mostrar los usuarios que se han creado en la base de datos.
 
 
-![WebApp](/Captures/WebApp.png)
+![WebApp](/Captures/WebApp.png?raw=true "WebApp")
 
 
 ## 3. Documentación de las tareas para desplegar la aplicación.
@@ -123,18 +123,18 @@ A continuación, se mostrará el backend y frontend funcionando con alguna petic
     3.1.1 Construir Front-End: **docker build -t api_backend ./backend**
     
     
-    ![Build_Frontend](/captures/Build_Frotend.png)
+    ![Build_Frontend](/captures/Build_Frotend.png?raw=true "Backend")
     
        
     3.1.2 Construir Back-End: **docker build -t api_frontend ./frontend**
     
     
-    ![Build_Backend](/captures/Build_Backend.png)
+    ![Build_Backend](/captures/Build_Backend.png?raw=true "Frontend")
     
     
   3.2 Luego de contruir las imagenes, procedemos a levantar los servicios con el comando: **docker-compose up**
   
-    ![Compose_Up1](/captures/Compose_Up1.png)
+    ![Compose_Up1](/captures/Compose_Up1.png?raw=true "Compose")
    
 
 --------------------------------------------------------------------------------------------------------------------------------------
