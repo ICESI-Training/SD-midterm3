@@ -11,6 +11,6 @@ RUN npm install
 # copy project files and folders to the current working directory (i.e. 'app' folder)
 COPY . .
 
-EXPOSE 8081
+EXPOSE 8090
 
 CMD ["npm", "run", "serve"]
