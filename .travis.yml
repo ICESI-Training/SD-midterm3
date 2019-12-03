@@ -13,7 +13,7 @@ branches:
     - master
 
 install:
-  - python3 -m pip install -r requirements.txt
+  - python3 -m pip install -r ./flask_server/requirements.txt
   - python3 -m pip install pymongo[srv]
 
 # command to run tests
