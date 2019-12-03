@@ -21,20 +21,14 @@
   <div >
       <form @submit.prevent="submitform">
           <label for="id">Id </label>
-       <input style=" border: 2px solid black;
-  border-radius: 3px;margin-bottom:2vh;" type="text" name="id" v-model="formdata.id"> 
+       <v-text-field style="margin-bottom:2vh;" type="text" name="id" v-model="formdata.id"> </v-text-field>
   <br>
   <label for="name">Nombre </label>
-       <input style=" border: 2px solid black ;
-  border-radius: 3px;margin-bottom:2vh;" type="text"  name="name" v-model="formdata.name"> 
+       <v-text-field style=" margin-bottom:2vh;" type="text"  name="name" v-model="formdata.name"> </v-text-field>
       <br>
-      <button style="margin-top:2vh;border-radius: 4px; 
-         background-color: white;
-  color: black;
-  border: 2px solid #0c186d;
-       " type="submit">
+      <v-btn  color="primary"  type="submit">
          Guardar
-       </button>
+       </v-btn>
     </form>
   </div>
   
@@ -67,7 +61,6 @@ export default {
       .getUsers()
       .then(response => {
         this.json_data = response;
-        console.log(this.json_data);
         this.loading = false;
       })
       .catch(err => console.log(err));
@@ -105,8 +98,7 @@ methods: {
              name: this.formdata.name
          }
          let answ=`id=${data.id}&name=${data.name}`
-         console.log(data.id)
-         console.log(data.name)
+        
      await    api.saveUser(answ).then(response => {
         
         console.log(response);
