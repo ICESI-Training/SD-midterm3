@@ -2,7 +2,7 @@
   <v-container>
   
       <div class="init">
-    <h1 style="">Datos de usuarios</h1>
+    <h1 style="">Estado de salud de servidores</h1>
    
       <v-simple-table>
         <template v-slot:default>
@@ -76,11 +76,9 @@ export default {
                 })
       .catch((err) => {
         console.log(err)
-                   if ("Network Error" == err.message) {
-             this.estadoFrontend = true;
-          } else {
+                
              this.estadoFrontend = false;
-          }
+          
                      
                       
                 })
