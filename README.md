@@ -151,5 +151,5 @@ For more on the Compose file format versions, see https://docs.docker.com/compos
 
 - Por ultimo encontramos un error al comunicar el front-end con el back-end. El error encontrado se refiere a los permisos para consultar la api del back, partiendo desde el front. Este error no fue posible solucionarlo por lo que se establece como mejorar en un futuro.
 
-
+   ![CORS](Captures/CORS_Error.png?raw=true "Compose")
 
