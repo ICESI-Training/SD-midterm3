@@ -110,6 +110,16 @@ Este comando se encarga de construir, crear, correr y conectar a contenedores pa
 
 ![alt text](images/docker-compose-up.png?raw=true "")
 
+- Verificamos que los contenedores están corriendo correctamente con el comando:
+  ```bash
+  sudo docker-compose ps
+    ```
+- Y obtenemos que los tres servicios están arriba:
+
+
+![alt text](images/7.jpeg?raw=true "")
+
+
 
 
 El archivo docker-compose.yml es el siguiente:
