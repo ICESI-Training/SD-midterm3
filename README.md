@@ -120,21 +120,22 @@ A continuación, se mostrará el backend y frontend funcionando con alguna petic
 
   3.1 Para desplegar la aplicacion, primero construimos nuestras imagenes para posteriormente correrla en un contenedor. Lo anterior se   hace a traves de los comandos:
     
-    3.1.1 Construir Front-End: **docker build -t api_backend ./backend** 
+    3.1.1 Construir Front-End: **docker build -t api_backend ./backend**
     
-    ![dockerUp](/captures/dockerUp.png)
-
     
+    ![Build_Frontend](/captures/Build_Frotend.png)
+    
+       
     3.1.2 Construir Back-End: **docker build -t api_frontend ./frontend**
     
+    
+    ![Build_Backend](/captures/Build_Backend.png)
+    
+    
   3.2 Luego de contruir las imagenes, procedemos a levantar los servicios con el comando: **docker-compose up**
+  
+    ![Compose_Up1](/captures/Compose_Up1.png)
    
-[ luego de haber realizado la configuración de  los dockerfiles, se mostrará como es el proceso para poder correr cada uno de esos dockerfiles ]
-
-[colocar los pasos para que corra la app ]
-
-[ imagen de la app corriendo ]
-![dockerUp](/captures/dockerUp.png)
 
 --------------------------------------------------------------------------------------------------------------------------------------
 ## 4. Documente algunos de los problemas encontrados y las acciones efectuadas para su solución.
