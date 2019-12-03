@@ -1,10 +1,23 @@
 import connexion
 import pymongo
 from bson.json_util import dumps
+from flask_cors import CORS
+from flask import Flask, make_response
 
 client = pymongo.MongoClient(
     "mongodb+srv://distribuidos:Distribuidos20192@distribuidos-1rmzz.mongodb.net/test?retryWrites=true&w=majority")
 db = client.distribuidos
+
+def _build_cors_prelight_response():
+    response = make_response()
+    response.headers.add("Access-Control-Allow-Origin", "*")
+    response.headers.add('Access-Control-Allow-Headers', "*")
+    response.headers.add('Access-Control-Allow-Methods', "*")
+    return response
+
+def _corsify_actual_response(response):
+    response.headers.add("Access-Control-Allow-Origin", "*")
+    return response
 
 def get_users():
 
@@ -75,7 +88,11 @@ def delete_user(cc):
             'empty-error': 'The cc parameter must not be empty'
         }
 
+
 if __name__ == '__main__':
     app = connexion.FlaskApp(__name__, port=5050, specification_dir='openapi/')
     app.add_api('indexer.yaml', arguments={'title': 'user api'})
+    cors = CORS(app.app)
+    app.app.config['CORS_HEADERS'] = 'Content-Type'
+    app.debug=True
     app.run()
