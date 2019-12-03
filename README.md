@@ -162,12 +162,19 @@ Ahora, podemos observar cada uno de los servicios corriendo correctamente:
 
 #### api
 
-api/ui
+
+- [http:localhost:3000/ui](http:localhost:3000/ui)
+
+
 ![alt text](images/3.jpeg?raw=true "")
 
 
 
 #### frontend
+
+- [http://localhost:4000/#/home](http://localhost:4000/#/home)
+
+
 - Se observa el formulario para ingresar un nuevo usuario a la base de datos:
 ![alt text](images/4.jpeg?raw=true "")
 
@@ -182,6 +189,8 @@ api/ui
 ![alt text](images/post-3.jpeg?raw=true "")
 
 #### healthcheck
+
+- [http://localhost:5000/#/home](http://localhost:5000/#/home)
 
 Se observa que ambos servicios están arriba:
 
