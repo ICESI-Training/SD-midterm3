@@ -42,7 +42,7 @@
        
   <v-data-table
  
-    height="600"
+   
     :headers="headers"
     :items="json_data"
     :items-per-page="5"
@@ -98,28 +98,23 @@ export default {
  };
  },
 methods: {
-     submitform(){
+   async  submitform(){
          
          let data={
              id: this.formdata.id,
              name: this.formdata.name
          }
-         console.log(data)
-         api.postData(data).then(response => {
+         let answ=`id=${data.id}&name=${data.name}`
+         console.log(data.id)
+         console.log(data.name)
+     await    api.saveUser(answ).then(response => {
         
-        console.log(response.data);
+        console.log(response);
        
       })
       .catch(err => console.log(err));
   },
-      submit () {
-        this.$v.$touch()
-      },
-      clear () {
-        this.$v.$reset()
-        this.id = ''
-        this.name = ''
-      },
+     
 }
         };
    

@@ -9,7 +9,7 @@ export default {
                     resolve(response.data);
                 })
                 .catch((err) => {
-                    reject('Error getting open data', err);
+                    reject('Error al obtener los datos de los usuarios', err);
                 })
         });
     },
@@ -20,18 +20,20 @@ export default {
                     resolve(response.data);
                 })
                 .catch((err) => {
-                    reject('Error getting open data', err);
+                    reject('Error al obtener los datos de ese usuario', err);
                 })
         });
     },
-    postData(data) {
+    saveUser(data) {
         return new Promise((resolve, reject) => {
-            axios.post('/users',data, {headers:{"Content-Type": "application/x-www-form-urlencoded"}})
+            axios.post('/users',data,{headers: {
+                Accept: "application/json"
+              }})
                 .then((response) => {
                     resolve(response);
                 })
                 .catch((err) => {
-                    reject('Error getting open data', err);
+                    reject('Error al guardar el usuario', err);
                 })
         });
     },
