@@ -1,5 +1,7 @@
 # Distributed systems third midterm #
 
+qevqevqevqevqvq
+
 sudo docker build -t flask_img .
 sudo docker run -v -d -p 5050:5050 --name flask_app flask_img
 sudo docker ps -a
