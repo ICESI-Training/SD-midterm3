@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import axios from "axios";
+import axios from "../../configaxios";
 
 export default {
   name: "Home",
@@ -45,9 +45,9 @@ export default {
         this.containers[0].status = "DOWN"
       });
 
-    //FRONTEND
+    //FRONTEND 
     axios
-      .get("http://localhost:8080")
+      .get("http://localhost:8080/index.html")
       .then(response => {
         if(response.status== 200){
              this.containers[1].status = "UP" 
