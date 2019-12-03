@@ -213,11 +213,11 @@ De igual forma al bajar el servicio frontend:
 
 
 - Uno de los problemas encontrados fue que al hacer la petición del post se estaba usando el Content-Type: application/x-www-form-urlencoded
-y no se había dimensionado la gravedad de su uso, ya que se estaba mandando un Json que retornaba un error. Luego de una investigación, encontramos que en dicho Content-Type hay que poner *key=value*, y si hay varios tienen que separarse por *&*. Por lo que mandamos:
+y no se había dimensionado la gravedad de su uso, ya que se estaba mandando un Json en el body, obteniendo como respuesta un error con status code 405. Luego de una investigación, encontramos que en dicho Content-Type hay que poner *key=value*, y si hay varios parametros tienen que separarse por *&*. Por lo que se decidió enviar en el body:
 ```javascript
  `id=${data.id}&name=${data.name}`
 ```
-- Otro problema resultó en la implementación del healthcheck. Esto debido a que al realizar una petición al frontend retornaba un problema con el cors. Se solucionó al agregar lo siguiente en el archivo vue.config.js del proyecto frontend:
+- Otro problema resultó en la implementación del healthcheck. Esto debido a que al realizar una petición al frontend retornaba un problema relacionado con el cors. Se solucionó al agregar lo siguiente en el archivo vue.config.js del proyecto frontend:
 
 ```javascript
 headers:{
@@ -231,11 +231,11 @@ headers:{
  @cross_origin(origin='*')
 ```
 
-- Al ejecutar en la consola *docker-compose up* había un problema en el healthcheck por cors al usar nginx, por lo que optamos por no crear los archivos del frontend para producción en el Dockerfile:
+- Al ejecutar en la consola *docker-compose up* y acceder al servicio de healthcheck, había un problema relacionado con el cors al usar nginx en el frontend, obteniendo como error el estado de salud de dicho servicio. Por esto, optamos por **no** crear la versión de producción usando el siguiente comando en el Dockerfile:
 ```Dockerfile
 RUN npm run build
 ```
-y usamos el servidor de desarrollo:
+- Teniendo como alternativa el servidor de desarrollo para ejecutar la aplicación, el cual usa el siguiente comando:
 ```Dockerfile
 RUN npm run serve
 ```
