@@ -60,23 +60,48 @@ En este archivo se definen los tres servicios que conforman la aplicación, esto
 
 ![Alt text](images/compose.png?raw=true "Docker Compose")
 
-Como puede verse en la captura anterior, la etiqueta build contiene la ruta en donde se encuentra el respectivo archivo *Dockerfile* 
+Como puede verse en la captura anterior, la etiqueta build contiene la ruta en donde se encuentra el respectivo archivo *Dockerfile* con el que se aproviona los contenedores, es por esto, que en cada carpeta se encuentra un *Dockerfile* el cual se usará para construr la imagen del contenedor dado el caso de que la imagen suministrada no se encuentra creada.
 
 
 ## 3. Aprovisionamiento mediante Docker
 
-La estructura del proyecto consta de 3 carpetas, donde cada carpeta tiene los archivos necesarios para su funcionamiento 
+La estructura del proyecto consta de 3 carpetas, donde cada carpeta tiene los archivos necesarios para su funcionamiento incluyendo, como se mencionó anteriormente, el *Dockerfile*. En estos archivos se define un template brindado por Docker que le permite al contenedor tener los paquetes y librerías básicos o necesarios para su servicio, así como los archivos de código fuente que se desean copiar del host a los contenedores, algunos comandos de instalación de paquetes y el comando de ejecución de la aplicación.
+
+A continuación se muestra el *Dockerfile* del servidor back end.
+
+![Alt text](images/docker_flask.png?raw=true "Docker flask")
+
+A continuación se muestra el *Dockerfile* del servidor front end, el cual es el mismo del servidor de monitoreo con la única diferencia en el puerto expuesto.
+
+![Alt text](images/docker_vue.png?raw=true "Docker vue")
+
+## 4. Pruebas unitarias con integración contínua
+
+El orden de las pruebas se hizo pensando en un continuo flujo de transacciones sobre la base de datos para la gestión de los usuarios, así como los tipos de peticiones, de manera que se pudieran evidenciar todas las posibles respuestas de los servicios de la API
+
+![Alt text](images/taverns.png?raw=true "Tavern syntax")
+
+Se utiliza Tavern, un plugin de pytest para volver más fácil la creación y ejecución de los test. El flujo para los test está determinado por el levantamiento del servidor en handlers.py seguido de la ejecución de un script bash que llama a este plugin y que prueba las diferentes peticiones a la API con sus respuestas correspondientes.
+
+Travis instala las dependencias necesarias y ejecuta los test con normalidad, además de que vuelve más natural la manera de diseñar el código de los test.
+
+Se realizaron 3 archivos para las pruebas (de tipo .tavern.yaml). En cada uno de ellos se evaluaban escenarios de prueba para diferentes tipos de respuestas HTTP Request (Como se consideraron las respuestas 200 (sucess), 201, 400(bad input) y 404(not found)); el objetivo de esto era poder ver un correcto comportamiento en condiciones ideales, otro comportamiento en condiciones de inputs inválidos y en momentos donde la base de datos no posee información sobre lo que se consulta. Tambien las operaciones del CRUD tomaban un papel importante en cuanto a las validaciones, con el objetivo de cuidar la integridad en la estructura de los datos.
 
 
-sudo docker build -t flask_img .
-sudo docker run -v -d -p 5050:5050 --name flask_app flask_img
-sudo docker ps -a
-sudo docker kill flask_app
-sudo docker rm flask_app
-sudo docker rmi flask_img
+## 5. Dificultades encontradas en el proceso
 
-sudo docker compose-up -d
-sudo docker exec -ti vue_app hostname -i
-sudo docker exec -ti health_app hostname -i
+- Recordar algunos detalles acerca del ciclo de vida de Vue, como los llamados a los métodos, las condiciones de renderizado, las propiedades de los elementos visuales, el submit de los formularios, entre otros.
 
-https://mherman.org/blog/dockerizing-a-vue-app/
+- Al no haberse usado axios antes, fue necesario aprender a realizar peticiones HTTP a través de este, al mismo tiempo que entender todo el manejo de respuestas de los servidores.
+
+- Al montar los servicios front hubo dificultades, ya que se intentaba acceder a los contenedores mediante una URL localhost. Luego se cayó en cuenta que a cada contenedor se le asigna una IP y por medio de esta después se accedió a los módulos requeridos.
+
+- Problemas de permisos en las computadoras públicas del laboratorio
+
+- Limitaciones de espacio-tiempo
+
+## 6. Referencias
+
+* https://mherman.org/blog/dockerizing-a-vue-app/
+* https://docs.docker.com/compose/gettingstarted/
+* https://vuejs.org/v2/guide/list.html
