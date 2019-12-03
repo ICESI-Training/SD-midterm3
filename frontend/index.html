@@ -3,8 +3,8 @@
 <head>
 	<title></title>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+	<script src="./js/jquery.js"></script>
+	<script src="./js/bootstrap.min.js"></script>
 </head>
 <body>
 	<div class="container">
@@ -29,7 +29,7 @@
 							<label for="id">Id:</label>
 							<input type="text" class="form-control" id="id" placeholder="id">
 						</div>
-						<input class="btn btn-success btn-block" type="submit" name="Enviar" value="Agregar" onclick="PostRequest()">
+						<input class="btn btn-success btn-block" type="button" name="Enviar" value="Agregar" onclick="PostRequest()">
 					</form>
 				</div>
 				<div class="tab-pane container" id="menu1">
@@ -39,7 +39,7 @@
 								<label for="name">Id:</label>
 								<input type="text" class="form-control" id="Id" placeholder="Id">
 							</div>
-							<input class="btn btn-success btn-block" type="submit" onclick="GetRequest()">
+							<input class="btn btn-success btn-block" type="button" name="Enviar" value="Buscar" onclick="GetRequest()">
 						</div>
 					</form>
 
@@ -50,23 +50,5 @@
 			</div>
 		</div>
 	</body>
-	<script>
-		function GetRequest(){
-			alert("Usando la funcion")
-			const url = 'localhost:8082/api/v1/users'
-    		const http = new XMLHttpRequest()
-
-    		http.open("GET", url)
-    		http.onreadystatechange = function(){
-
-        	if(this.readyState == 4 && this.status == 200){
-         	  var resultado = JSON.parse(this.responseText)
-        
-            	console.log(resultado.name)
-            	alert("Este es el resultado"+resultado)
-         	}      
-    	}
-    http.send()
-	}
-	</script>
+	<script src="./js/Request.js"></script>
 	</html>

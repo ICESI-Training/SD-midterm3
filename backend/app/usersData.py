@@ -15,7 +15,6 @@ db = client.students
 # Select the collection
 collection = db.User
 
-
 #@app.route("/")
 def get_initial_response():
     """Welcome Jmaquin0 for the API."""
