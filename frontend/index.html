@@ -39,7 +39,7 @@
 								<label for="name">Id:</label>
 								<input type="text" class="form-control" id="Id" placeholder="Id">
 							</div>
-							<input class="btn btn-success btn-block" type="submit" name="Enviar" value="Buscar" onclick="GetRequest()">
+							<input class="btn btn-success btn-block" type="submit" onclick="GetRequest()">
 						</div>
 					</form>
 
@@ -49,7 +49,24 @@
 				</div>
 			</div>
 		</div>
-		<script src="/frontend/js/GetRequest.js"></script>
-
 	</body>
+	<script>
+		function GetRequest(){
+			alert("Usando la funcion")
+			const url = 'localhost:8082/api/v1/users'
+    		const http = new XMLHttpRequest()
+
+    		http.open("GET", url)
+    		http.onreadystatechange = function(){
+
+        	if(this.readyState == 4 && this.status == 200){
+         	  var resultado = JSON.parse(this.responseText)
+        
+            	console.log(resultado.name)
+            	alert("Este es el resultado"+resultado)
+         	}      
+    	}
+    http.send()
+	}
+	</script>
 	</html>
