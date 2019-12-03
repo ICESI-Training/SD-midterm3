@@ -1,0 +1,22 @@
+version: "3"
+services:
+  api:
+    environment:
+      - MONGO_FLASK=d_user:distribuidos20192
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    volumes:
+    - .:/code
+    ports:
+      - "3000:3000"
+      
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    volumes:
+    - .:/app
+    ports:
+      - "5010:8080"
+
